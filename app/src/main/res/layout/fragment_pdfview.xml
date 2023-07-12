@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_200"
+    tools:context=".ui.PdfViewFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/drawingCv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/backGroundViewCl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/canvasIv"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/pdfViewer"
+                app:layout_constraintEnd_toEndOf="@+id/pdfViewer"
+                app:layout_constraintStart_toStartOf="@+id/pdfViewer"
+                app:layout_constraintTop_toTopOf="@+id/pdfViewer" />
+
+            <com.github.barteksc.pdfviewer.PDFView
+                android:id="@+id/pdfViewer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:id="@+id/actionBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:minHeight="?attr/actionBarSize"
+                            android:theme="?attr/actionBarTheme"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/backBtn"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/circle_selector_bg"
+                            android:padding="8dp"
+                            android:rotation="90"
+                            android:src="@drawable/arrow_down"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/appBarTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:fontFamily="@font/baloo_da"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/backBtn"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="PDFDrawing" />
+
+                        <Button
+                            android:id="@+id/saveBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:text="Capture"
+                            android:textAllCaps="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guidelineStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="20dp" />
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guidelineEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_end="20dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <ImageView
+                    android:id="@+id/btnBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_grey_400_bg"
+                    app:layout_constraintBottom_toBottomOf="@id/bottomSpacer"
+                    app:layout_constraintStart_toStartOf="@id/pail"
+                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+                <Space
+                    android:id="@+id/topSpacer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/pail"
+                    app:layout_constraintStart_toStartOf="@+id/pail" />
+
+                <Space
+                    android:id="@+id/bottomSpacer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="@+id/pail"
+                    app:layout_constraintTop_toBottomOf="@+id/pail" />
+
+                <ImageButton
+                    android:id="@+id/brush"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/brush"
+                    app:layout_constraintEnd_toStartOf="@+id/pail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+                <ImageButton
+                    android:id="@+id/pail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/paint"
+                    app:layout_constraintEnd_toStartOf="@id/eraser"
+                    app:layout_constraintStart_toEndOf="@id/brush"
+                    app:layout_constraintTop_toTopOf="@+id/brush" />
+
+                <ImageButton
+                    android:id="@+id/eraser"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/eraser"
+                    app:layout_constraintEnd_toStartOf="@id/colors"
+                    app:layout_constraintStart_toEndOf="@id/pail"
+                    app:layout_constraintTop_toTopOf="@+id/pail" />
+
+                <ImageButton
+                    android:id="@+id/colors"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/colors"
+                    app:layout_constraintEnd_toStartOf="@id/undo"
+                    app:layout_constraintStart_toEndOf="@id/eraser"
+                    app:layout_constraintTop_toTopOf="@+id/eraser" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="2dp"
+                    android:layout_height="40dp"
+                    app:dividerColor="@color/grey_500"
+                    app:layout_constraintEnd_toEndOf="@+id/undo"
+                    app:layout_constraintStart_toStartOf="@+id/colors"
+                    app:layout_constraintTop_toTopOf="@+id/colors" />
+
+                <ImageButton
+                    android:id="@+id/undo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/undo_selector"
+                    app:layout_constraintEnd_toStartOf="@id/redo"
+                    app:layout_constraintStart_toEndOf="@id/colors"
+                    app:layout_constraintTop_toTopOf="@+id/colors" />
+
+                <ImageButton
+                    android:id="@+id/redo"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/btn_selector"
+                    android:padding="4dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/redo_selector"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/undo"
+                    app:layout_constraintTop_toTopOf="@+id/undo" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnBg"
+                    app:layout_constraintEnd_toEndOf="@id/colors"
+                    app:layout_constraintStart_toStartOf="@id/colors">
+
+                    <View
+                        android:id="@+id/selectedColorDot"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@color/black" />
+
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:stepSize="1"
+                    android:value="20"
+                    android:valueFrom="1"
+                    android:valueTo="100"
+                    app:haloColor="@color/grey_500"
+                    app:labelBehavior="floating"
+                    app:layout_constraintEnd_toEndOf="@id/btnBg"
+                    app:layout_constraintStart_toStartOf="@+id/btnBg"
+                    app:layout_constraintTop_toBottomOf="@+id/btnBg"
+                    app:thumbColor="@color/grey_dark"
+                    app:tickColor="@color/transparent"
+                    app:trackColorActive="@color/grey_dark"
+                    app:trackColorInactive="@color/grey_400" />
+
+                <Button
+                    android:id="@+id/colorOne"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/red"
+                    app:layout_constraintEnd_toStartOf="@id/colorTwo"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnBg" />
+
+                <Button
+                    android:id="@+id/colorTwo"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/green"
+                    app:layout_constraintBottom_toBottomOf="@+id/colorOne"
+                    app:layout_constraintEnd_toStartOf="@id/colorThree"
+                    app:layout_constraintStart_toEndOf="@id/colorOne"
+                    app:layout_constraintTop_toTopOf="@+id/colorOne" />
+
+                <Button
+                    android:id="@+id/colorThree"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/blue"
+                    app:layout_constraintBottom_toBottomOf="@+id/colorTwo"
+                    app:layout_constraintEnd_toStartOf="@id/colorFour"
+                    app:layout_constraintStart_toEndOf="@id/colorTwo"
+                    app:layout_constraintTop_toTopOf="@+id/colorTwo" />
+
+                <Button
+                    android:id="@+id/colorFour"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="@color/orange"
+                    app:layout_constraintBottom_toBottomOf="@+id/colorThree"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/colorThree"
+                    app:layout_constraintTop_toTopOf="@+id/colorThree" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
