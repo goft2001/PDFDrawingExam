@@ -14,6 +14,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.net.toUri
 import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -99,7 +100,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
                     drawWithBrushAction(event = p1)
                 }
 
-                Tool.Pail -> {
+                Tool.Drag -> {
                     drawWithPailAction(event = p1)
                 }
 
@@ -171,9 +172,10 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
     }
 
     private fun displayFromSdcard() {
-       val position = args.position
-        pdfFileName = HomeFragment.fileList[position].name
-        binding.pdfViewer.fromFile(HomeFragment.fileList[position.toInt()])
+        val position = args.position
+        val pdfuri = args.pdfUri
+//        pdfFileName = HomeFragment.fileList[position].name
+        binding.pdfViewer.fromUri(pdfuri.toUri())
             .defaultPage(pageNumber)
             .enableSwipe(true)
             .swipeHorizontal(false)
@@ -235,17 +237,16 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
 
     private fun initToolButtons() {
         onToolSelected(binding.brush, Tool.Brush)
-
         val toolButtons = listOf(
             binding.brush,
-            binding.pail,
+            binding.drag,
             binding.eraser,
             binding.colors
         )
 
         val tools = listOf(
             Tool.Brush,
-            Tool.Pail,
+            Tool.Drag,
             Tool.Eraser,
             Tool.Colors
         )
@@ -288,7 +289,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
     private fun resetToolButtons() {
         val buttons = listOf(
             binding.brush,
-            binding.pail,
+            binding.drag,
             binding.eraser,
             binding.colors
         )
@@ -492,7 +493,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
         printBookmarksTree(binding.pdfViewer.tableOfContents, "-")
     }
 
-    fun printBookmarksTree(tree: List<PdfDocument.Bookmark>, sep: String) {
+    private fun printBookmarksTree(tree: List<PdfDocument.Bookmark>, sep: String) {
         for (b in tree) {
             Log.e(TAG, String.format("%s %s, p %d", sep, b.title, b.pageIdx))
             if (b.hasChildren()) {

@@ -25,6 +25,7 @@
     <color name="orange">#FFFFAA00</color>
 
     <color name="red_400">#FFDC143C</color>
+    <color name="opacity_color_80eeeef2">#80EEEEF2</color>
 
     <color name="transparent">#00000000</color>
 </resources>

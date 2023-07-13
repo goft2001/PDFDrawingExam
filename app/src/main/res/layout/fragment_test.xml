@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfViewer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/canvasIv"
@@ -21,6 +14,15 @@
         app:layout_constraintEnd_toEndOf="@+id/pdfViewer"
         app:layout_constraintStart_toStartOf="@+id/pdfViewer"
         app:layout_constraintTop_toTopOf="@+id/pdfViewer" />
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfViewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -72,7 +74,7 @@
             app:layout_constraintTop_toTopOf="@+id/appBarTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,26 +83,10 @@
         android:background="@drawable/rounded_grey_400_bg"
         android:gravity="center_horizontal"
         android:padding="10dp"
+        android:weightSum="7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:id="@+id/selectedColorDot"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@color/black" />
-
-        </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:id="@+id/brush"
@@ -108,85 +94,91 @@
             android:layout_height="40dp"
             android:background="@drawable/btn_selector"
             android:scaleType="fitCenter"
-            android:src="@drawable/brush"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintStart_toEndOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
+            android:src="@drawable/brush" />
 
         <ImageButton
             android:id="@+id/drag"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/btn_selector"
             android:scaleType="fitCenter"
-            android:src="@drawable/drag_ic"
-            app:layout_constraintEnd_toStartOf="@+id/eraser"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/brush"
-            app:layout_constraintTop_toTopOf="@+id/brush" />
+            android:src="@drawable/drag_ic" />
 
         <ImageButton
             android:id="@+id/eraser"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/btn_selector"
             android:scaleType="fitCenter"
-            android:src="@drawable/eraser"
-            app:layout_constraintEnd_toStartOf="@+id/colors"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/drag"
-            app:layout_constraintTop_toTopOf="@+id/drag" />
+            android:src="@drawable/eraser" />
 
         <ImageButton
             android:id="@+id/colors"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/btn_selector"
             android:scaleType="fitCenter"
-            android:src="@drawable/colors"
-            app:layout_constraintEnd_toStartOf="@+id/divider"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/eraser"
-            app:layout_constraintTop_toTopOf="@+id/eraser" />
+            android:src="@drawable/colors" />
 
         <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/divider"
-            android:layout_width="4dp"
+            android:layout_width="2dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             app:dividerColor="@color/grey_500"
-            app:layout_constraintEnd_toStartOf="@+id/undo"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/colors"
+            app:layout_constraintEnd_toEndOf="@+id/undo"
+            app:layout_constraintStart_toStartOf="@+id/colors"
             app:layout_constraintTop_toTopOf="@+id/colors" />
 
         <ImageButton
             android:id="@+id/undo"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/btn_selector"
             android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/undo_selector"
-            app:layout_constraintEnd_toStartOf="@+id/redo"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/divider"
-            app:layout_constraintTop_toTopOf="@+id/divider" />
+            app:layout_constraintEnd_toStartOf="@id/redo"
+            app:layout_constraintStart_toEndOf="@id/colors"
+            app:layout_constraintTop_toTopOf="@+id/colors" />
 
         <ImageButton
             android:id="@+id/redo"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
             android:background="@drawable/btn_selector"
             android:padding="4dp"
             android:scaleType="fitCenter"
             android:src="@drawable/redo_selector"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/undo"
+            app:layout_constraintStart_toEndOf="@id/undo"
             app:layout_constraintTop_toTopOf="@+id/undo" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBg"
+            app:layout_constraintEnd_toEndOf="@id/colors"
+            app:layout_constraintStart_toStartOf="@id/colors">
+
+            <View
+                android:id="@+id/selectedColorDot"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@color/black" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     <com.google.android.material.slider.Slider
         android:id="@+id/slider"
         android:layout_width="0dp"
@@ -208,8 +200,8 @@
 
     <Button
         android:id="@+id/colorOne"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/red"
         app:layout_constraintEnd_toStartOf="@id/colorTwo"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -218,8 +210,8 @@
 
     <Button
         android:id="@+id/colorTwo"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/colorOne"
         app:layout_constraintEnd_toStartOf="@id/colorThree"
@@ -228,8 +220,8 @@
 
     <Button
         android:id="@+id/colorThree"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/colorTwo"
         app:layout_constraintEnd_toStartOf="@id/colorFour"
@@ -238,8 +230,8 @@
 
     <Button
         android:id="@+id/colorFour"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="@+id/colorThree"
         app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"

@@ -11,6 +11,10 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_pdfview" >
         <argument
+            android:name="pdfUri"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
             android:name="position"
             app:argType="integer"
             android:defaultValue="-1" />
