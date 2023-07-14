@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +17,8 @@ import com.example.pdfdrawingapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-
     private var mUri: Uri? = null
-
+    private val binding get() = _binding!!
     private val openDocumentLauncher = registerForActivityResult<Intent, ActivityResult>(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult? ->
@@ -28,9 +26,7 @@ class HomeFragment : Fragment() {
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
         val resultData = result.data
         if (resultData != null) {
-            mUri = result.data!!.data
-            val pdfName = resultData.data?.path
-            Log.d("PDFDrawing App", "pdfName = $pdfName")
+            mUri = resultData.data
             if (mUri != null) {
                 findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToPdfViewFragment(
@@ -41,15 +37,12 @@ class HomeFragment : Fragment() {
             invalidateOptionsMenu(requireActivity())
         }
     }
-
-    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-//        init()
         binding.openBtn.setOnClickListener {
             openDocument()
         }

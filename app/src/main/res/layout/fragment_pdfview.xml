@@ -59,7 +59,7 @@
             tools:text="PDFDrawing" />
 
         <Button
-            android:id="@+id/saveBtn"
+            android:id="@+id/capture_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/black"

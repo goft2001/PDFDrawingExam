@@ -30,7 +30,6 @@ import com.shockwave.pdfium.PdfDocument
 class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener {
     private var _binding: FragmentPdfviewBinding? = null
     private val binding get() = _binding!!
-    var pdfFileName: String? = null
     var pageNumber = 0
 
     val TAG = javaClass.simpleName
@@ -118,8 +117,26 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
             true
         }
 
-        binding.saveBtn.setOnClickListener {
+        binding.captureBtn.setOnClickListener {
         }
+    }
+
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    override fun onPageChanged(page: Int, pageCount: Int) {
+        pageNumber = page
+        binding.appBarTitle.text = String.format("%s %s / %s", "Page", page + 1, pageCount)
+    }
+
+    override fun loadComplete(nbPages: Int) {
+        val meta = binding.pdfViewer.documentMeta
+        printBookmarksTree(binding.pdfViewer.tableOfContents, "-")
     }
 
     private fun initUndoRedoButtons() {
@@ -172,10 +189,9 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
     }
 
     private fun displayFromSdcard() {
-        val position = args.position
-        val pdfuri = args.pdfUri
+        val pdfUri = args.pdfUri
 //        pdfFileName = HomeFragment.fileList[position].name
-        binding.pdfViewer.fromUri(pdfuri.toUri())
+        binding.pdfViewer.fromUri(pdfUri.toUri())
             .defaultPage(pageNumber)
             .enableSwipe(true)
             .swipeHorizontal(false)
@@ -254,11 +270,25 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
         toolButtons.zip(tools).forEach { buttonTool ->
             buttonTool.first.setOnClickListener {
                 when (buttonTool.second) {
-                    Tool.Colors ->
+                    Tool.Colors ->{
+                        binding.canvasIv.visibility = View.VISIBLE
                         onColorsToolSelected(buttonTool.first, buttonTool.second)
+                    }
 
-                    Tool.Brush, Tool.Eraser ->
+                    Tool.Brush -> {
+                        binding.canvasIv.visibility = View.VISIBLE
                         onSliderToolSelected(buttonTool.first, buttonTool.second)
+                    }
+                    Tool.Drag -> {
+                        resetBitmap()
+                        binding.canvasIv.setImageBitmap(bitmap)
+                        binding.canvasIv.visibility = View.GONE
+                    }
+
+                    Tool.Eraser -> {
+                        binding.canvasIv.visibility = View.VISIBLE
+                        onSliderToolSelected(buttonTool.first, buttonTool.second)
+                    }
 
                     else ->
                         onToolSelected(buttonTool.first, buttonTool.second)
@@ -473,25 +503,6 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
         binding.slider.visibility = View.INVISIBLE
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        private const val ANIMATION_DURATION: Long = 200
-        private const val ANIMATION_SCALE = 1.3f
-    }
-
-    override fun onPageChanged(page: Int, pageCount: Int) {
-        pageNumber = page
-        binding.appBarTitle.text = String.format("%s %s / %s", pdfFileName, page + 1, pageCount)
-    }
-
-    override fun loadComplete(nbPages: Int) {
-        val meta = binding.pdfViewer.documentMeta
-        printBookmarksTree(binding.pdfViewer.tableOfContents, "-")
-    }
 
     private fun printBookmarksTree(tree: List<PdfDocument.Bookmark>, sep: String) {
         for (b in tree) {
@@ -500,5 +511,9 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
                 printBookmarksTree(b.children, "$sep-")
             }
         }
+    }
+    companion object {
+        private const val ANIMATION_DURATION: Long = 200
+        private const val ANIMATION_SCALE = 1.3f
     }
 }

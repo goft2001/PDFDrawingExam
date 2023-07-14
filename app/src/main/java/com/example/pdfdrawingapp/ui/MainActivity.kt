@@ -12,14 +12,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.pdfdrawingapp.R
 import com.example.pdfdrawingapp.databinding.ActivityMainBinding
-import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -32,11 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        checkPermission()
+        checkPermission(this)
     }
-
-
-    private fun checkPermission(): Boolean {
+   private fun checkPermission(activity: MainActivity): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var permissions: Array<String>? = null
             permissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -66,7 +62,10 @@ class MainActivity : AppCompatActivity() {
             }
             if (denied_permissions.size > 0) {
                 val deniedPerms = denied_permissions.toTypedArray()
-                ActivityCompat.requestPermissions(this, deniedPerms, REQUEST_PERMISSIONS)
+                ActivityCompat.requestPermissions(
+                    activity, deniedPerms,
+                    REQUEST_PERMISSIONS
+                )
                 return false
             }
         }
@@ -76,4 +75,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var REQUEST_PERMISSIONS = 1
     }
+
+
 }
