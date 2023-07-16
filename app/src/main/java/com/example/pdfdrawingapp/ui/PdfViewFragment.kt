@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Point
+import android.graphics.PorterDuffXfermode
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -79,12 +80,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
             findNavController().popBackStack()
         }
 
-        eraserPaint.color =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                resources.getColor(R.color.white, null)
-            else
-                resources.getColor(R.color.white)
-
+        eraserPaint.xfermode = PorterDuffXfermode(android.graphics.PorterDuff.Mode.CLEAR)
         initColorPicker()
         initToolButtons()
         initSlider()
@@ -190,7 +186,6 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
 
     private fun displayFromSdcard() {
         val pdfUri = args.pdfUri
-//        pdfFileName = HomeFragment.fileList[position].name
         binding.pdfViewer.fromUri(pdfUri.toUri())
             .defaultPage(pageNumber)
             .enableSwipe(true)
@@ -266,7 +261,6 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
             Tool.Eraser,
             Tool.Colors
         )
-
         toolButtons.zip(tools).forEach { buttonTool ->
             buttonTool.first.setOnClickListener {
                 when (buttonTool.second) {
@@ -280,9 +274,11 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
                         onSliderToolSelected(buttonTool.first, buttonTool.second)
                     }
                     Tool.Drag -> {
-                        resetBitmap()
                         binding.canvasIv.setImageBitmap(bitmap)
                         binding.canvasIv.visibility = View.GONE
+                        onToolSelected(buttonTool.first, buttonTool.second)
+                        if(bitmap != null)
+                          clearBitmap()
                     }
 
                     Tool.Eraser -> {
@@ -357,7 +353,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
                 }
 
                 else -> {
-                    View.INVISIBLE
+                    View.GONE
                 }
             }
     }
@@ -491,7 +487,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
             binding.colorFour
         )
         colorButtons.forEach { button ->
-            button.visibility = View.INVISIBLE
+            button.visibility = View.GONE
         }
     }
 
@@ -500,7 +496,7 @@ class PdfViewFragment : Fragment(), OnPageChangeListener, OnLoadCompleteListener
     }
 
     private fun closeSlider() {
-        binding.slider.visibility = View.INVISIBLE
+        binding.slider.visibility = View.GONE
     }
 
 

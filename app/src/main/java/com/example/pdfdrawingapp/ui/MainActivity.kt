@@ -54,14 +54,14 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 )
             }
-            val denied_permissions: MutableList<String> = ArrayList()
+            val deniedPermissions: MutableList<String> = ArrayList()
             for (perm in permissions) {
                 if (ActivityCompat.checkSelfPermission(this, perm)
                     != PackageManager.PERMISSION_GRANTED
-                ) denied_permissions.add(perm)
+                ) deniedPermissions.add(perm)
             }
-            if (denied_permissions.size > 0) {
-                val deniedPerms = denied_permissions.toTypedArray()
+            if (deniedPermissions.size > 0) {
+                val deniedPerms = deniedPermissions.toTypedArray()
                 ActivityCompat.requestPermissions(
                     activity, deniedPerms,
                     REQUEST_PERMISSIONS

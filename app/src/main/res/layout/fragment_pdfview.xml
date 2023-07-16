@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfViewer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/canvasIv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/pdfViewer"
-        app:layout_constraintEnd_toEndOf="@+id/pdfViewer"
-        app:layout_constraintStart_toStartOf="@+id/pdfViewer"
-        app:layout_constraintTop_toTopOf="@+id/pdfViewer" />
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdfViewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/canvasIv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pdfViewer"
+            app:layout_constraintEnd_toEndOf="@+id/pdfViewer"
+            app:layout_constraintStart_toStartOf="@+id/pdfViewer"
+            app:layout_constraintTop_toTopOf="@+id/pdfViewer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -77,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_grey_400_bg"
         android:gravity="center_horizontal"
         android:padding="10dp"
@@ -90,7 +91,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -106,10 +106,11 @@
             android:id="@+id/brush"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/btn_selector"
             android:scaleType="fitCenter"
             android:src="@drawable/brush"
-            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/cardView"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="@+id/cardView" />
@@ -186,64 +187,64 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/undo"
             app:layout_constraintTop_toTopOf="@+id/undo" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:stepSize="1"
+            android:value="20"
+            android:valueFrom="1"
+            android:valueTo="100"
+            app:haloColor="@color/grey_500"
+            app:labelBehavior="floating"
+            app:layout_constraintEnd_toEndOf="@+id/redo"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/brush"
+            app:thumbColor="@color/grey_dark"
+            app:tickColor="@color/transparent"
+            app:trackColorActive="@color/grey_dark"
+            app:trackColorInactive="@color/grey_400" />
+
+        <Button
+            android:id="@+id/colorOne"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginVertical="10dp"
+            android:backgroundTint="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/brush"
+            app:layout_constraintTop_toBottomOf="@+id/brush" />
+
+        <Button
+            android:id="@+id/colorTwo"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/green"
+            app:layout_constraintBottom_toBottomOf="@+id/colorOne"
+            app:layout_constraintEnd_toStartOf="@id/colorThree"
+            app:layout_constraintStart_toEndOf="@id/colorOne"
+            app:layout_constraintTop_toTopOf="@+id/colorOne" />
+
+        <Button
+            android:id="@+id/colorThree"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/blue"
+            app:layout_constraintBottom_toBottomOf="@+id/colorTwo"
+            app:layout_constraintEnd_toStartOf="@id/colorFour"
+            app:layout_constraintStart_toEndOf="@id/colorTwo"
+            app:layout_constraintTop_toTopOf="@+id/colorTwo" />
+
+        <Button
+            android:id="@+id/colorFour"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/orange"
+            app:layout_constraintBottom_toBottomOf="@+id/colorThree"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
+            app:layout_constraintStart_toEndOf="@id/colorThree"
+            app:layout_constraintTop_toTopOf="@+id/colorThree" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.google.android.material.slider.Slider
-        android:id="@+id/slider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:stepSize="1"
-        android:value="20"
-        android:valueFrom="1"
-        android:valueTo="100"
-        app:haloColor="@color/grey_500"
-        app:labelBehavior="floating"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
-        app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
-        app:thumbColor="@color/grey_dark"
-        app:tickColor="@color/transparent"
-        app:trackColorActive="@color/grey_dark"
-        app:trackColorInactive="@color/grey_400" />
-
-
-    <Button
-        android:id="@+id/colorOne"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/red"
-        app:layout_constraintEnd_toStartOf="@id/colorTwo"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat" />
-
-    <Button
-        android:id="@+id/colorTwo"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/colorOne"
-        app:layout_constraintEnd_toStartOf="@id/colorThree"
-        app:layout_constraintStart_toEndOf="@id/colorOne"
-        app:layout_constraintTop_toTopOf="@+id/colorOne" />
-
-    <Button
-        android:id="@+id/colorThree"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintBottom_toBottomOf="@+id/colorTwo"
-        app:layout_constraintEnd_toStartOf="@id/colorFour"
-        app:layout_constraintStart_toEndOf="@id/colorTwo"
-        app:layout_constraintTop_toTopOf="@+id/colorTwo" />
-
-    <Button
-        android:id="@+id/colorFour"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:backgroundTint="@color/orange"
-        app:layout_constraintBottom_toBottomOf="@+id/colorThree"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
-        app:layout_constraintStart_toEndOf="@id/colorThree"
-        app:layout_constraintTop_toTopOf="@+id/colorThree" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

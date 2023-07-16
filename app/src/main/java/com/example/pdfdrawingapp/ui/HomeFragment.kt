@@ -34,9 +34,9 @@ class HomeFragment : Fragment() {
                     )
                 )
             }
-            invalidateOptionsMenu(requireActivity())
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +44,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.openBtn.setOnClickListener {
-            openDocument()
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "application/pdf"
+            openDocumentLauncher.launch(intent)
         }
 
         return binding.root
@@ -53,12 +56,5 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun openDocument() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "application/pdf"
-        openDocumentLauncher.launch(intent)
     }
 }
